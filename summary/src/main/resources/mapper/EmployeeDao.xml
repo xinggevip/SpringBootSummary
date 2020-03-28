@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiangssvip.summary.dao.EmployeeDao">
+  <resultMap id="BaseResultMap" type="com.qiangssvip.summary.pojo.Employee">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="inputtime" jdbcType="TIMESTAMP" property="inputtime" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="admin" jdbcType="BIT" property="admin" />
+    <result column="dep_id" jdbcType="BIGINT" property="depId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <if test="fields == null">
+      id, username, inputtime, tel, email, state, admin, dep_id, password
+    </if>
+    <if test="fields != null">
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" parameterType="com.qiangssvip.summary.pojo.EmployeeQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    id,username,inputtime,tel,email,state,admin,dep_id,password
+    from employee
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from employee
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qiangssvip.summary.pojo.EmployeeQuery">
+    delete from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qiangssvip.summary.pojo.Employee">
+    insert into employee (id, username, inputtime, 
+      tel, email, state, admin, 
+      dep_id, password)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{inputtime,jdbcType=TIMESTAMP}, 
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{state,jdbcType=BIT}, #{admin,jdbcType=BIT}, 
+      #{depId,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiangssvip.summary.pojo.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="inputtime != null">
+        inputtime,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="admin != null">
+        admin,
+      </if>
+      <if test="depId != null">
+        dep_id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="admin != null">
+        #{admin,jdbcType=BIT},
+      </if>
+      <if test="depId != null">
+        #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qiangssvip.summary.pojo.EmployeeQuery" resultType="java.lang.Integer">
+    select count(*) from employee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update employee
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inputtime != null">
+        inputtime = #{record.inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=BIT},
+      </if>
+      <if test="record.admin != null">
+        admin = #{record.admin,jdbcType=BIT},
+      </if>
+      <if test="record.depId != null">
+        dep_id = #{record.depId,jdbcType=BIGINT},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update employee
+    set id = #{record.id,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      inputtime = #{record.inputtime,jdbcType=TIMESTAMP},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=BIT},
+      admin = #{record.admin,jdbcType=BIT},
+      dep_id = #{record.depId,jdbcType=BIGINT},
+      password = #{record.password,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiangssvip.summary.pojo.Employee">
+    update employee
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        inputtime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="admin != null">
+        admin = #{admin,jdbcType=BIT},
+      </if>
+      <if test="depId != null">
+        dep_id = #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiangssvip.summary.pojo.Employee">
+    update employee
+    set username = #{username,jdbcType=VARCHAR},
+      inputtime = #{inputtime,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      state = #{state,jdbcType=BIT},
+      admin = #{admin,jdbcType=BIT},
+      dep_id = #{depId,jdbcType=BIGINT},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

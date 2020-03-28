@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiangssvip.summary.dao.RoleDao">
+  <resultMap id="BaseResultMap" type="com.qiangssvip.summary.pojo.Role">
+    <id column="rid" jdbcType="BIGINT" property="rid" />
+    <result column="rnum" jdbcType="VARCHAR" property="rnum" />
+    <result column="rname" jdbcType="VARCHAR" property="rname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <if test="fields == null">
+      rid, rnum, rname
+    </if>
+    <if test="fields != null">
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" parameterType="com.qiangssvip.summary.pojo.RoleQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    rid,rnum,rname
+    from role
+    where rid = #{rid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role
+    where rid = #{rid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qiangssvip.summary.pojo.RoleQuery">
+    delete from role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qiangssvip.summary.pojo.Role">
+    insert into role (rid, rnum, rname
+      )
+    values (#{rid,jdbcType=BIGINT}, #{rnum,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiangssvip.summary.pojo.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="rnum != null">
+        rnum,
+      </if>
+      <if test="rname != null">
+        rname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=BIGINT},
+      </if>
+      <if test="rnum != null">
+        #{rnum,jdbcType=VARCHAR},
+      </if>
+      <if test="rname != null">
+        #{rname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qiangssvip.summary.pojo.RoleQuery" resultType="java.lang.Integer">
+    select count(*) from role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update role
+    <set>
+      <if test="record.rid != null">
+        rid = #{record.rid,jdbcType=BIGINT},
+      </if>
+      <if test="record.rnum != null">
+        rnum = #{record.rnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rname != null">
+        rname = #{record.rname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update role
+    set rid = #{record.rid,jdbcType=BIGINT},
+      rnum = #{record.rnum,jdbcType=VARCHAR},
+      rname = #{record.rname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiangssvip.summary.pojo.Role">
+    update role
+    <set>
+      <if test="rnum != null">
+        rnum = #{rnum,jdbcType=VARCHAR},
+      </if>
+      <if test="rname != null">
+        rname = #{rname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiangssvip.summary.pojo.Role">
+    update role
+    set rnum = #{rnum,jdbcType=VARCHAR},
+      rname = #{rname,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=BIGINT}
+  </update>
+</mapper>

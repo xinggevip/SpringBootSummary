@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiangssvip.summary.dao.EmployeeRoleRelDao" >
+  <resultMap id="BaseResultMap" type="com.qiangssvip.summary.pojo.EmployeeRoleRelKey" >
+    <id column="eid" property="eid" jdbcType="BIGINT" />
+    <id column="rid" property="rid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      eid, rid
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from employee_role_rel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelKey" >
+    delete from employee_role_rel
+    where eid = #{eid,jdbcType=BIGINT}
+      and rid = #{rid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelQuery" >
+    delete from employee_role_rel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelKey" >
+    insert into employee_role_rel (eid, rid)
+    values (#{eid,jdbcType=BIGINT}, #{rid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelKey" >
+    insert into employee_role_rel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=BIGINT},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qiangssvip.summary.pojo.EmployeeRoleRelQuery" resultType="java.lang.Integer" >
+    select count(*) from employee_role_rel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update employee_role_rel
+    <set >
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=BIGINT},
+      </if>
+      <if test="record.rid != null" >
+        rid = #{record.rid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update employee_role_rel
+    set eid = #{record.eid,jdbcType=BIGINT},
+      rid = #{record.rid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
