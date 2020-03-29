@@ -24,6 +24,14 @@
     url:http://127.0.0.1:8080/doc.html
     ```
 
+  - RabbitMQ
+
+    ```
+    url:http://192.168.163.128:15672
+    ```
+
+    
+
 ## 二、Docker
 
 ### Docker安装redis
