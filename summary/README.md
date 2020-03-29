@@ -28,6 +28,8 @@
 
     ```
     url:http://192.168.163.128:15672
+    username:guest
+    password:guest
     ```
 
     
