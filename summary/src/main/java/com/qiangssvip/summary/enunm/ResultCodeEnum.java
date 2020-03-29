@@ -10,6 +10,10 @@ public enum ResultCodeEnum {
     NOT_FOUND(404, "not found"),
     // 服务器错误
     SERVER_ERROR(500,"server error"),
+    // 需要登录
+    NEED_LOGIN(405,"需要登录"),
+    // 参数错误
+    PARAM_ERROR(406,"参数错误")
 
     /*** 这里可以根据不同模块用不同的区级分开错误码，例如:  ***/
 

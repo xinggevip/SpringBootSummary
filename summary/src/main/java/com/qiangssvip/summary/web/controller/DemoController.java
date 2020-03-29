@@ -2,6 +2,7 @@ package com.qiangssvip.summary.web.controller;
 
 
 import com.qiangssvip.summary.enunm.ResultCodeEnum;
+import com.qiangssvip.summary.form.DemoForm;
 import com.qiangssvip.summary.pojo.Employee;
 import com.qiangssvip.summary.utils.HttpResult;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -80,6 +82,15 @@ public class DemoController {
         }
         log.info("employee = {}",employee);
         return HttpResult.success();
+    }
+
+    /**
+     * 参数验证测试
+     */
+
+    @PostMapping("/addEmployee")
+    public HttpResult addEmployee(@Validated @RequestBody DemoForm form){
+        return HttpResult.success(form);
     }
 
 

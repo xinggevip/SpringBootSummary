@@ -2,11 +2,16 @@ package com.qiangssvip.summary.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.qiangssvip.summary.enunm.ResultCodeEnum;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)  // 属性值为空的属性不返回给前端
+@Slf4j
 public class HttpResult<T> implements Serializable {
     /**
      * 是否响应成功
@@ -52,6 +57,12 @@ public class HttpResult<T> implements Serializable {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
     }
+
+    private HttpResult(ResultCodeEnum resultCode,String message) {
+        this.success = false;
+        this.code = resultCode.getCode();
+        this.message = message;
+    }
     // 构造器结束
 
     /**
@@ -81,6 +92,21 @@ public class HttpResult<T> implements Serializable {
      */
     public static<T> HttpResult<T> failure(ResultCodeEnum resultCode){
         return  new HttpResult<T>(resultCode);
+    }
+
+    public static<T> HttpResult<T> failure(ResultCodeEnum resultCode,String message){
+        return  new HttpResult<T>(resultCode,message);
+    }
+
+    public static<T> HttpResult<T> failure(ResultCodeEnum resultCode, BindingResult bindingResult){
+        String message = "";
+        String separator = System.getProperty("line.separator");
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        for (FieldError fieldError : fieldErrors) {
+            message += fieldError.getField() + " " + fieldError.getDefaultMessage() + separator;
+        }
+        log.info("message = {}",message);
+        return  new HttpResult<T>(resultCode,message);
     }
 
     public Boolean getSuccess() {
