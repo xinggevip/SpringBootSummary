@@ -5,7 +5,7 @@
 - Druid
 
   ```
-  uil:http://127.0.0.1:8080/druid/index.html
+  url:http://127.0.0.1:8080/druid/index.html
   username:root
   password:123456
   ```
