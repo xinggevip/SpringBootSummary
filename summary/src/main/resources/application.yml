@@ -34,6 +34,11 @@ spring:
         max-idle: 500
         min-idle: 50
         max-active: 2000
+  rabbitmq:
+    addresses: 192.168.163.128
+    port: 5672
+    username: guest
+    password: guest
   http:
     encoding:
       charset: UTF-8
