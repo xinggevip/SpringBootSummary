@@ -31,7 +31,9 @@ spring:
     port: 6379
     jedis:
       pool:
-        max-wait:
+        max-idle: 500
+        min-idle: 50
+        max-active: 2000
   http:
     encoding:
       charset: UTF-8
