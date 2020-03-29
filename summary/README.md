@@ -24,3 +24,11 @@
     url:http://127.0.0.1:8080/doc.html
     ```
 
+## 二、Docker
+
+### Docker安装redis
+
+```
+docker run -d -p 6379:6379 redis:5.0.8
+```
+

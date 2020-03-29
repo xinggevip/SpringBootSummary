@@ -26,7 +26,15 @@ spring:
       web-stat-filter:
         enabled: true
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
-
+  redis:
+    host: 192.168.163.128
+    port: 6379
+    jedis:
+      pool:
+        max-wait:
+  http:
+    encoding:
+      charset: UTF-8
 mybatis:
   configuration:
     map-underscore-to-camel-case: true  # 开启驼峰
