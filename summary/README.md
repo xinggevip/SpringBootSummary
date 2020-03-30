@@ -12,7 +12,7 @@
 
 - Swagger
 
-  - springfox-swagger-ui (已注解该ui相关依赖)
+  - springfox-swagger-ui
 
     ```
     url:http://127.0.0.1:8080/swagger-ui.html
